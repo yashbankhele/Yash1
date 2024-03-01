@@ -1,0 +1,67 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+const int MAX_CITIES = 10;
+
+vector<string> city;
+vector<vector<int>> distanceMatrix;
+
+void cityname() {
+    cout << "Enter the number of cities (up to " << MAX_CITIES << "): ";
+    int size;
+    cin >> size;
+    city.resize(size);
+    distanceMatrix.resize(size, vector<int>(size, 0));
+
+    for (int i = 0; i < size; i++) {
+        cout << "Enter Name city no. " << i + 1 << " : ";
+        cin >> city[i];
+    }
+}
+
+void distance() {
+    for (int i = 0; i < city.size(); i++) {
+        for (int j = 0; j < city.size(); j++) {
+            if (i != j && distanceMatrix[i][j] == 0) {
+                cout << "Enter distance between " << city[i] << " -> " << city[j] << " : ";
+                cin >> distanceMatrix[i][j];
+                distanceMatrix[j][i] = distanceMatrix[i][j];
+            }
+        }
+    }
+}
+
+void add() {
+    cout << "Enter Name of city : ";
+    string newCity;
+    cin >> newCity;
+    city.push_back(newCity);
+    distance();
+}
+
+void display() {
+    // Your display function remains the same
+}
+
+int main() {
+    cityname();
+    distance();
+    int ch;
+    while (true) {
+        cout << "1. Add a city" << endl;
+        cout << "2. Display weight representation" << endl;
+        cout << "3. Exit" << endl;
+        cout << "Enter choice: ";
+        cin >> ch;
+        if (ch == 1) {
+            add();
+        } else if (ch == 2) {
+            display();
+        } else if (ch == 3) {
+            break;
+        }
+    }
+
+    return 0;
+}
